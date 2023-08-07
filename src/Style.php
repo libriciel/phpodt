@@ -33,12 +33,14 @@ class Style
      * @param DOMDocument $styleDoc
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct($name, $masterPageName)
     {
         $this->styleDocument = Odt::getInstance()->getStyleDocument();
         $this->name = $name;
         $this->styleElement = $this->styleDocument->createElement('style:style');
         $this->styleElement->setAttribute('style:name', $name);
+
+        $this->styleElement->setAttribute('style:master-page-name', $masterPageName);
         $this->styleDocument->getElementsByTagName('office:styles')->item(0)->appendChild($this->styleElement);
     }
 

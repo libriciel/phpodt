@@ -9,12 +9,13 @@ use PhpOdt\Exceptions\StyleException;
  */
 class ParagraphStyle extends Style
 {
-    public function __construct($name)
+    public function __construct($name, $masterPageName)
     {
         if (empty($name)) {
             $name = 'paragraphstyle' . rand(100, 9999999);
         }
-        parent::__construct($name);
+
+        parent::__construct($name, $masterPageName);
         $this->styleElement->setAttribute('style:family', 'paragraph');
     }
 

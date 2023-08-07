@@ -12,6 +12,7 @@ class Paragraph
 //  private $contentDocument;
     private $pElement;
     private $documentContent;
+    private $document;
 
     /**
      *
@@ -21,6 +22,7 @@ class Paragraph
     public function __construct($pStyle = null, $addToDocument = true)
     {
         $this->documentContent = Odt::getInstance()->getDocumentContent();
+        $this->document = Odt::getInstance()->getContent();
         $this->pElement = $this->documentContent->createElement('text:p');
         if ($pStyle != null) {
             $this->pElement->setAttribute('text:style-name', $pStyle->getStyleName());
@@ -75,8 +77,9 @@ class Paragraph
      * @param string $image The path to the image
      * @param length $width The width of the image (not in pixels)
      * @param length $height The height of the image (not in pixels)
+     * @pramam lengh $anchor le type d'attache
      */
-    public function addImage($image, $width, $height)
+    public function addImagebase64($image, $width, $height, $background, $name, $anchor = null)
     {
         $file = fopen($image, 'r');
         if (!$file) {
@@ -87,12 +90,97 @@ class Paragraph
         fclose($file);
         $binaryElement = $this->documentContent->createElement('office:binary-data', $dateImgB64);
         $drawImage = $this->documentContent->createElement('draw:image');
-        $drawImage->setAttribute('svg:width', $width);
-        $drawImage->setAttribute('svg:height', $height);
-        $drawImage->setAttribute('text:anchor-type', 'as-char');
         $drawImage->appendChild($binaryElement);
         $drawFrame = $this->documentContent->createElement('draw:frame');
         $drawFrame->appendChild($drawImage);
+
+        $drawFrame->setAttribute('svg:width', $width);
+        $drawFrame->setAttribute('svg:height', $height);
+
+        switch ($anchor) {
+            case 'page':
+                $drawFrame->setAttribute('text:anchor-type', 'page');
+                break;
+
+            case 'paragraph':
+                $drawFrame->setAttribute('text:anchor-type', 'paragraph');
+                break;
+
+            case 'char':
+                $drawFrame->setAttribute('text:anchor-type', 'char');
+                break;
+
+            default:
+                $drawFrame->setAttribute('text:anchor-type', 'as-char');
+                break;
+        }
+        if ($background) {
+            $drawFrame->setAttribute('draw:z-index', '1');
+            $drawFrame->setAttribute('draw:style-name', 'background-image-' . $name);
+
+            $graphicStyles = new GraphicStyle('background-image-' . $name);
+            $graphicStyles->setGraphicPosition('background');
+        }
+
+        $this->pElement->appendChild($drawFrame);
+    }
+
+    /**
+     * Add an image to the pararaph.
+     * @param string $image The path to the image
+     * @param length $width The width of the image (not in pixels)
+     * @param length $height The height of the image (not in pixels)
+     * @pramam lengh $anchor le type d'attache
+     */
+    public function addImage($image, $width, $height, $background, $name, $anchor = null)
+    {
+        $file = fopen($image, 'r');
+        if (!$file) {
+            throw new OdtException('Cannot open image');
+        }
+        $dataImg = fread($file, filesize($image));
+        fclose($file);
+        $this->document->addFromString('Pictures/' . $name, $dataImg);
+        Odt::getInstance()->setFileManifest('Pictures/' . $name);
+
+        $drawImage = $this->documentContent->createElement('draw:image');
+        $drawImage->setAttribute('xlink:href', 'Pictures/' . $name);
+        $drawImage->setAttribute('xlink:type', 'simple');
+        $drawImage->setAttribute('xlink:show', 'embed');
+        $drawImage->setAttribute('xlink:actuate', 'onLoad');
+        $drawFrame = $this->documentContent->createElement('draw:frame');
+        $drawFrame->appendChild($drawImage);
+        $drawFrame->setAttribute('svg:width', $width);
+        $drawFrame->setAttribute('svg:height', $height);
+        switch ($anchor) {
+            case 'page':
+                $drawFrame->setAttribute('text:anchor-type', 'page');
+                break;
+
+            case 'paragraph':
+                $drawFrame->setAttribute('text:anchor-type', 'paragraph');
+                break;
+
+            case 'char':
+                $drawFrame->setAttribute('text:anchor-type', 'char');
+                break;
+
+            default:
+                $drawFrame->setAttribute('text:anchor-type', 'as-char');
+                break;
+        }
+        if ($background) {
+            $drawFrame->setAttribute('draw:z-index', '1');
+            $drawFrame->setAttribute('draw:style-name', 'background-image-' . $name);
+            $graphicStyles = new GraphicStyle('background-image-' . $name);
+            $graphicStyles->setGraphicPosition('background');
+        } else {
+            $drawFrame->setAttribute('draw:z-index', '1');
+            $drawFrame->setAttribute('draw:style-name', 'paragraph-image-' . $name);
+            $graphicStyles = new GraphicStyle('paragraph-image-' . $name);
+            $graphicStyles->setGraphicPosition('paragraph');
+        }
+
         $this->pElement->appendChild($drawFrame);
     }
 

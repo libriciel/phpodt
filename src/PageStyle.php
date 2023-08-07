@@ -35,6 +35,8 @@ class PageStyle
 
     private $masterStyleElement;
 
+    private $masterStyleElementName;
+
     /**
      * The DOMElement representing the header properties
      * @access private
@@ -55,11 +57,13 @@ class PageStyle
      * element
      * @param DOMDocument $styleDoc
      * @param string $name
+     * @param string $masterStyleElementName
      */
-    public function __construct($name)
+    public function __construct($name, $masterStyleElementName)
     {
         $this->styleDocument = Odt::getInstance()->getStyleDocument();
         $this->name = $name;
+        $this->masterStyleElementName = $masterStyleElementName;
         $pageLayoutStyleElement = $this->styleDocument->createElement('style:page-layout');
         $this->pageLayoutProperties = $this->styleDocument->createElement('style:page-layout-properties');
         $this->headerProperties = $this->styleDocument->createElement('style:header-footer-properties');
@@ -75,7 +79,7 @@ class PageStyle
         $this->styleDocument->getElementsByTagName('office:automatic-styles')->item(0)
             ->appendChild($pageLayoutStyleElement);
         $this->masterStyleElement = $this->styleDocument->createElement('style:master-page');
-        $this->masterStyleElement->setAttribute('style:name', 'Standard');
+        $this->masterStyleElement->setAttribute('style:name', $masterStyleElementName);
         $this->masterStyleElement->setAttribute('style:page-layout-name', $name);
         $this->styleDocument->getElementsByTagName('office:master-styles')->item(0)
             ->appendChild($this->masterStyleElement);
@@ -612,6 +616,7 @@ class PageStyle
     {
         $this->setHeadFootHeight('header', $height);
     }
+
     public function setFooterHeight($height)
     {
         $this->setHeadFootHeight('footer', $height);
@@ -638,6 +643,7 @@ class PageStyle
     {
         $this->setHeadFootMinHeight('header', $minHeight);
     }
+
     public function setFooterMinHeight($minHeight)
     {
         $this->setHeadFootMinHeight('footer', $minHeight);
@@ -769,6 +775,7 @@ class PageStyle
     ) {
         $this->setHeadFootBorder('header', $borderColor, $borderStyle, $borderWidth);
     }
+
     public function setFooterBorder(
         $borderColor = '#000000',
         $borderStyle = StyleConstants::SOLID,
@@ -792,6 +799,7 @@ class PageStyle
     ) {
         $this->setHeaderBorder($borderColor, $borderStyle, $borderWidth, 'top');
     }
+
     public function setFooterTopBorder(
         $borderColor = '#000000',
         $borderStyle = StyleConstants::SOLID,
@@ -815,6 +823,7 @@ class PageStyle
     ) {
         $this->setHeaderBorder($borderColor, $borderStyle, $borderWidth, 'bottom');
     }
+
     public function setFooterBottomBorder(
         $borderColor = '#000000',
         $borderStyle = StyleConstants::SOLID,
@@ -838,6 +847,7 @@ class PageStyle
     ) {
         $this->setHeaderBorder($borderColor, $borderStyle, $borderWidth, 'left');
     }
+
     public function setFooterLeftBorder(
         $borderColor = '#000000',
         $borderStyle = StyleConstants::SOLID,
@@ -861,6 +871,7 @@ class PageStyle
     ) {
         $this->setHeaderBorder($borderColor, $borderStyle, $borderWidth, 'right');
     }
+
     public function setFooterRightBorder(
         $borderColor = '#000000',
         $borderStyle = StyleConstants::SOLID,
@@ -899,6 +910,7 @@ class PageStyle
     {
         $this->setHeadFootPadding('header', $padding, $position);
     }
+
     public function setFooterPadding($padding, $position = '')
     {
         $this->setHeadFootPadding('footer', $padding, $position);
@@ -908,6 +920,7 @@ class PageStyle
     {
         $this->setHeaderPadding($padding, 'top');
     }
+
     public function setFooterTopPadding($padding)
     {
         $this->setFooterPadding($padding, 'top');
@@ -917,6 +930,7 @@ class PageStyle
     {
         $this->setHeaderPadding($padding, 'bottom');
     }
+
     public function setFooterBottomPadding($padding)
     {
         $this->setFooterPadding($padding, 'bottom');
@@ -926,6 +940,7 @@ class PageStyle
     {
         $this->setHeaderPadding($padding, 'left');
     }
+
     public function setFooterLeftPadding($padding)
     {
         $this->setFooterPadding($padding, 'left');
@@ -935,6 +950,7 @@ class PageStyle
     {
         $this->setHeaderPadding($padding, 'right');
     }
+
     public function setFooterRightPadding($padding)
     {
         $this->setFooterPadding($padding, 'right');
@@ -961,6 +977,7 @@ class PageStyle
     {
         $this->setHeadFootBackgroundColor('header', $color);
     }
+
     public function setFooterBackground($color)
     {
         $this->setHeadFootBackgroundColor('footer', $color);
@@ -1038,6 +1055,7 @@ class PageStyle
     ) {
         $this->setHeadFootBackgroundColor('header', $image, $repeat, $position);
     }
+
     public function setFooterBackgroundImage(
         $image,
         $repeat = StyleConstants::REPEAT,

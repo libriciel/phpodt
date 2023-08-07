@@ -2,6 +2,8 @@
 
 namespace PhpOdt;
 
+use Exception;
+
 class NumberFormat
 {
     private $prefix;
