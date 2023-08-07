@@ -2,6 +2,6 @@
 
 namespace PhpOdt\Exceptions;
 
-	class StyleException extends OdtException {
-
-	}
+class StyleException extends OdtException
+{
+}

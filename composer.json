@@ -15,6 +15,7 @@
     "ext-zip": "*"
   },
   "require-dev": {
+    "squizlabs/php_codesniffer": "*"
   },
   "autoload": {
     "files": ["src/functions.php"],

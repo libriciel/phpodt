@@ -2,21 +2,23 @@
 
 namespace PhpOdt\Exceptions;
 
-use \Exception;
+use Exception;
 
-	class OdtException extends Exception {
+class OdtException extends Exception
+{
+    protected $message;
 
-		protected $message;
+    public function __construct($message)
+    {
+        $this->message = $message;
+    }
 
-		function __construct($message) {
-			$this->message = $message;
-		}
-
-		function __toString() {
-			$class = new ReflectionClass($this);
-			$trace = $this->getTrace();
-			$errorMsg = 'Exception "'.$class->getName().'" in '.$trace[0]['file'].'('.$trace[0]['line'].')'.
-						': <strong>'.$this->getMessage().'</strong>';
-			return $errorMsg;
-		}
-	}
+    public function __toString()
+    {
+        $class = new ReflectionClass($this);
+        $trace = $this->getTrace();
+        $errorMsg = 'Exception "' . $class->getName() . '" in ' . $trace[0]['file'] . '(' . $trace[0]['line'] . ')' .
+                    ': <strong>' . $this->getMessage() . '</strong>';
+        return $errorMsg;
+    }
+}
