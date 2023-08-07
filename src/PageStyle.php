@@ -1,12 +1,11 @@
 <?php
 
-//require_once 'functions.php';
-require_once 'class.odt.php';
+namespace PhpOdt;
+
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing the properties of a page.
- *
- * @author Issam RACHDI
  */
 class PageStyle {
 
@@ -58,7 +57,7 @@ class PageStyle {
 	 * @param string $name
 	 */
 	function __construct($name) {
-		$this->styleDocument = ODT::getInstance()->getStyleDocument();
+		$this->styleDocument = Odt::getInstance()->getStyleDocument();
 		$this->name = $name;
 		$pageLayoutStyleElement = $this->styleDocument->createElement('style:page-layout');
 		$this->pageLayoutProperties = $this->styleDocument->createElement('style:page-layout-properties');
@@ -164,7 +163,7 @@ class PageStyle {
 		if (!isNumeric($rightMargin) && !isLengthValue($rightMargin)) {
 			throw new StyleException('Invalid right-margin value');
 		}
-		
+
 		$this->pageLayoutProperties->setAttribute('fo:margin-left', $leftMargin);
 		$this->pageLayoutProperties->setAttribute('fo:margin-right', $rightMargin);
 	}
@@ -891,11 +890,11 @@ class PageStyle {
 	function setHeadFootContent($element, $content, $paragraphStyles = null) {
 		$p = new Paragraph($paragraphStyles, false);
 		if ($content == StyleConstants::PAGE_NUMBER) {
-			$pageNumber = ODT::getInstance()->getDocumentContent()->createElement('text:page-number');
+			$pageNumber = Odt::getInstance()->getDocumentContent()->createElement('text:page-number');
 			$pageNumber->setAttribute('text:select-page', 'current');
 			$p->getDOMElement()->appendChild($pageNumber);
 		} else if($content == StyleConstants::CURRENT_DATE) {
-			$date = ODT::getInstance()->getDocumentContent()->createElement('text:date');
+			$date = Odt::getInstance()->getDocumentContent()->createElement('text:date');
 			$p->getDOMElement()->appendChild($date);
 		} else {
 			$p->addText($content);
@@ -913,4 +912,3 @@ class PageStyle {
 		$this->setHeadFootContent('style:footer', $content, $paragraphStyles);
 	}
 }
-?>

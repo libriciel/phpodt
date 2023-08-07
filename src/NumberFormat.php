@@ -1,30 +1,32 @@
 <?php
 
+namespace PhpOdt;
+
 class NumberFormat {
-	
+
 	private $prefix;
 	/**
 	 * What will be displayed before the number
 	 * @var string
 	 */
 	private $suffix;
-	 
+
 	private $format;
-	
+
 	function __construct($prefix = NULL, $suffix = NULL, $format = NULL) {
 		$this->prefix = $prefix;
 		$this->suffix = $suffix;
 		$this->format = $format;
 	}
-	
+
 	public function getPrefix() {
 		return $this->prefix;
 	}
 
 	/**
 	 * Specifies what will be displayed before the number
-	 * 
-	 * @param string $prefix 
+	 *
+	 * @param string $prefix
 	 */
 	public function setPrefix($prefix) {
 		$this->prefix = $prefix;
@@ -36,8 +38,8 @@ class NumberFormat {
 
 	/**
 	 * Specifies what will be displayed after the number
-	 * 
-	 * @param string $suffix 
+	 *
+	 * @param string $suffix
 	 */
 	public function setSuffix($suffix) {
 		$this->suffix = $suffix;
@@ -53,7 +55,7 @@ class NumberFormat {
 	 * Alphabetic: a, b, c, ... or A, B, C, ...
 	 * Roman: i, ii, iii, iv, ... or I, II, III, IV,...
 	 * The argument can be "1", "a", "A", "i", or "I". If empty, no number is displayed.
-	 * 
+	 *
 	 * @param string $format
 	 */
 	public function setFormat($format) {
@@ -67,9 +69,8 @@ class NumberFormat {
 			default:
 				throw new Exception('Invalid num-format value');
 		}
-		
+
 	}
 
 
 }
-?>

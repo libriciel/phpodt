@@ -1,14 +1,9 @@
 <?php
 
-//require_once 'functions.php';
-//require_once 'class.odt.php';
-
-include_once 'phpodt.php';
+namespace PhpOdt;
 
 /**
  * Base class for paragraph & text styles.
- * 
- * @author Issam RACHDI
  */
 class Style {
 
@@ -34,12 +29,12 @@ class Style {
 	/**
 	 * The constructor initializes the properties, then creates a <style:style>
 	 * element representing this specific style, and add it to <office:styles> element
-	 * 
+	 *
 	 * @param DOMDocument $styleDoc
 	 * @param string $name
 	 */
 	function __construct($name) {
-		$this->styleDocument = ODT::getInstance()->getStyleDocument();
+		$this->styleDocument = Odt::getInstance()->getStyleDocument();
 		$this->name = $name;
 		$this->styleElement = $this->styleDocument->createElement('style:style');
 		$this->styleElement->setAttribute('style:name', $name);
@@ -53,12 +48,10 @@ class Style {
 	function getStyleName() {
 		return $this->name;
 	}
-	
+
 	public function setStyleName($name) {
 		$this->name = $name;
 	}
 
 
 }
-
-?>

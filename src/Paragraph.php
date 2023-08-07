@@ -1,15 +1,15 @@
 <?php
 
-require_once 'class.odt.php';
+namespace PhpOdt;
+
+use PhpOdt\Exceptions\OdtException;
 
 /**
  * A Class representing a paragraph.
- *
- * @author Issam RACHDI
  */
 
 class Paragraph {
-	
+
 //	private $contentDocument;
 	private $pElement;
 	private $documentContent;
@@ -20,7 +20,7 @@ class Paragraph {
 	 * @param <type> $pStyle A ParagraphStyle object representing paragraph style properties
 	 */
 	public function __construct($pStyle = null, $addToDocument = true) {
-		$this->documentContent = ODT::getInstance()->getDocumentContent();
+		$this->documentContent = Odt::getInstance()->getDocumentContent();
 		$this->pElement = $this->documentContent->createElement('text:p');
 		if ($pStyle != null) {
 			$this->pElement->setAttribute('text:style-name', $pStyle->getStyleName());
@@ -35,7 +35,7 @@ class Paragraph {
 	 * @param string $content
 	 */
 	public function addText($content, $styles = NULL) {
-    if ($styles != NULL) {      
+    if ($styles != NULL) {
       $span = $this->documentContent->createElement('text:span', $content);
       $span->setAttribute('text:style-name', $styles->getStyleName());
       $this->pElement->appendChild($span);
@@ -77,7 +77,7 @@ class Paragraph {
 	public function addImage($image, $width, $height) {
 		$file = fopen($image, 'r');
 		if (!$file) {
-			throw new ODTException('Cannot open image');
+			throw new OdtException('Cannot open image');
 		}
 		$dataImg = fread($file, filesize($image));
 		$dateImgB64 = base64_encode($dataImg);
@@ -96,29 +96,29 @@ class Paragraph {
 	/**
 	 * Add a line break
 	 */
-	
+
 	public function addLineBreak() {
 		$this->pElement->appendChild($this->documentContent->createElement('text:line-break'));
 	}
 
 	/**
 	 * Create a bookmark
-	 * 
+	 *
 	 * @param type $name The name of the bookmark
 	 */
-	
+
 	public function addBookmark($name)	{
 		$bookmark = $this->documentContent->createElement('text:bookmark');
 		$bookmark->setAttribute('text:name', $name);
 		$this->pElement->appendChild($bookmark);
 	}
-	
+
 	/**
 	 * Create a reference to a bookmark
 	 * @param type $name The name of the bookmark to reference
 	 * @param type $refText The text to display for the reference
 	 */
-	
+
 	public function addBookmarkRef($name, $refText) {
 		$ref = $this->documentContent->createElement('text:bookmark-ref');
 		$ref->setAttribute('text:ref-name', $name);
@@ -126,15 +126,15 @@ class Paragraph {
 		$ref->appendChild($this->documentContent->createTextNode($refText));
 		$this->pElement->appendChild($ref);
 	}
-	
+
 	/**
-	 * A note represents text notes which are attached to a certain text position. 
+	 * A note represents text notes which are attached to a certain text position.
 	 * A common implementation of this concept are the footnotes and endnotes found in most word processors.
-	 * 
+	 *
 	 * @param type $body The note's content
 	 * @param type $noteClass The type of the note, either FOOTNOTE (In the footer of the page), or ENDNOTE(The end of the document)
 	 */
-	
+
 	public function addNote($body, $noteClass = StyleConstants::FOOTNOTE) {
 		$note = $this->documentContent->createElement('text:note');
 //		if ($citation != NULL) {
@@ -158,17 +158,17 @@ class Paragraph {
 		$note->setAttribute('text:note-class', $noteClass);
 		$this->pElement->appendChild($note);
 	}
-	
+
 	/**
-	 * A ruby is additional text that is displayed above or below some base text. 
+	 * A ruby is additional text that is displayed above or below some base text.
 	 * The purpose of ruby is to annotate the base text or provide information about its pronunciation.
-	 * 
+	 *
 	 * @param string $base The text that will be annotated
 	 * @param string $text The annotation text
 	 * @param TextStyle $textRubyStyle The style to apply to the annotation text
 	 * @param RubyStyle $rubyStyle The style to apply to this ruby
 	 */
-	
+
 	function addRuby($base, $text, $textRubyStyle = NULL, $rubyStyle = NULL) {
 		$ruby = $this->documentContent->createElement('text:ruby');
 		$ruby_base = $this->documentContent->createElement('text:ruby-base');
@@ -195,5 +195,3 @@ class Paragraph {
 		return $this->pElement;
 	}
 }
-
-?>

@@ -26,5 +26,3 @@ function isLengthValue($value, $nonNegative = false) {
 function isPercentage($value) {
 	return preg_match('/\d+(.\d)*%/', $value);
 }
-
-?>

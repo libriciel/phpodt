@@ -1,12 +1,17 @@
 <?php
-	class ODTException extends Exception {
-		
+
+namespace PhpOdt\Exceptions;
+
+use \Exception;
+
+	class OdtException extends Exception {
+
 		protected $message;
-		
+
 		function __construct($message) {
 			$this->message = $message;
 		}
-		
+
 		function __toString() {
 			$class = new ReflectionClass($this);
 			$trace = $this->getTrace();
@@ -15,4 +20,3 @@
 			return $errorMsg;
 		}
 	}
-?>

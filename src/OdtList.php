@@ -1,17 +1,12 @@
 <?php
 
-//require_once 'class.paragraph.php';
-//require_once 'class.odt.php';
-
-include_once 'phpodt.php';
+namespace PhpOdt;
 
 /**
  * A Class representing a list.
- *
- * @author Issam RACHDI
  */
 
-class ODTList {
+class OdtList {
 
 	/**
 	 * The DOMDocument instance containing the content of the document
@@ -32,7 +27,7 @@ class ODTList {
 	 * @param array $items The items of the list. You can also add items via the addItem method
 	 */
 	function __construct($items = null, $addToDocument = true) {
-		$this->contentDocument = ODT::getInstance()->getDocumentContent();
+		$this->contentDocument = Odt::getInstance()->getDocumentContent();
 		$this->listElement = $this->contentDocument->createElement('text:list');
 		if ($addToDocument) {
 			$this->contentDocument->getElementsByTagName('office:text')->item(0)->appendChild($this->listElement);
@@ -69,7 +64,7 @@ class ODTList {
 	/**
 	 * Adds a sublist to this list
 	 *
-	 * @param ODTList $sublist
+	 * @param OdtList $sublist
 	 */
 	function addSubList($sublist) {
 		$element = $this->contentDocument->createElement('text:list-item');
@@ -86,5 +81,3 @@ class ODTList {
 		return $this->listElement;
 	}
 }
-
-?>

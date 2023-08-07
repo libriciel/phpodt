@@ -1,8 +1,8 @@
 <?php
 
-//require_once 'class.styleconstants.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 class ListLevelProp {
 
@@ -15,7 +15,7 @@ class ListLevelProp {
 	private $imageHeight = NULL;
 
 	function __construct() {
-		
+
 	}
 
 	public function getAlign() {
@@ -23,10 +23,10 @@ class ListLevelProp {
 	}
 
 	/**
-	 * Specifies the horizontal alignment of a label (number) within the width 
+	 * Specifies the horizontal alignment of a label (number) within the width
 	 * specified by the {@link #setMinLabelWidth setMinLabelWidth()} method
-	 * 
-	 * @param integer $align 
+	 *
+	 * @param integer $align
 	 */
 	public function setAlign($align) {
 		switch($align) {
@@ -53,12 +53,12 @@ class ListLevelProp {
 	}
 
 	/**
-	 * Specifies the space to include before the number for all paragraphs at this level. 
-	 * The value of this property is absolute. This means that when the position of a label is 
-	 * calculated the indent value of the current level is only considered. The indent values for 
+	 * Specifies the space to include before the number for all paragraphs at this level.
+	 * The value of this property is absolute. This means that when the position of a label is
+	 * calculated the indent value of the current level is only considered. The indent values for
 	 * lower levels do not affect the label position.
-	 * 
-	 * @param length $indent 
+	 *
+	 * @param length $indent
 	 */
 	public function setIndent($indent) {
 		$this->indent = $indent;
@@ -70,8 +70,8 @@ class ListLevelProp {
 
 	/**
 	 * Specifies the minimum width of a number.
-	 * 
-	 * @param length $minLabelWidth 
+	 *
+	 * @param length $minLabelWidth
 	 */
 	public function setMinLabelWidth($minLabelWidth) {
 		if (isLengthValue($minLabelWidth, true)) {
@@ -87,8 +87,8 @@ class ListLevelProp {
 
 	/**
 	 * Specifies the minimum distance between the number and the text of the list item.
-	 * 
-	 * @param length $minLabelDistance 
+	 *
+	 * @param length $minLabelDistance
 	 */
 	public function setMinLabelDistance($minLabelDistance) {
 		if (isLengthValue($minLabelDistance, true)) {
@@ -104,7 +104,7 @@ class ListLevelProp {
 
 	/**
 	 * Specifies the vertical alignment of the image.
-	 * 
+	 *
 	 * @param integer $vAlign Valid values are StyleConstants::(TOP|MIDDLE|BOTTOM)
 	 */
 	public function setVAlign($vAlign) {
@@ -114,7 +114,7 @@ class ListLevelProp {
 			case StyleConstants::MIDDLE:
 				$vAlign = 'middle';break;
 			case StyleConstants::BOTTOM:
-				$vAlign = 'bottom';break;						
+				$vAlign = 'bottom';break;
 			default:
 				throw new StyleException('Invalid vertical align value');
 		}
@@ -127,15 +127,15 @@ class ListLevelProp {
 
 	/**
 	 * Specifies the images's width
-	 * 
-	 * @param length $imageWidth 
+	 *
+	 * @param length $imageWidth
 	 */
 	public function setImageWidth($imageWidth) {
 		if (isLengthValue($imageWidth, true)) {
 			$this->imageWidth = $imageWidth;
 		} else {
 			throw new StyleException('Invalid image width value');
-		}		
+		}
 	}
 
 	public function getImageHeight() {
@@ -144,8 +144,8 @@ class ListLevelProp {
 
 	/**
 	 * Specifies the images's heiht
-	 * 
-	 * @param length $imageHeight 
+	 *
+	 * @param length $imageHeight
 	 */
 	public function setImageHeight($imageHeight) {
 		if (isLengthValue($imageHeight, true)) {
@@ -155,4 +155,3 @@ class ListLevelProp {
 		}
 	}
 }
-?>

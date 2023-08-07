@@ -1,14 +1,11 @@
 <?php
 
-//require_once 'class.contentautostyle.php';
-//require_once 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for table rows.
- *
- * @author Issam RACHDI
  */
 
 class RowStyle extends ContentAutoStyle {
@@ -24,8 +21,8 @@ class RowStyle extends ContentAutoStyle {
 		$this->rowProp = $this->contentDocument->createElement('style:table-row-properties');
 		$this->styleElement->appendChild($this->rowProp);
 	}
-	
-	
+
+
 	public function setMinHeight($minHeight) {
 		if(isLengthValue($minHeight, true)) {
 			$this->rowProp->setAttribute('style:min-row-height', $minHeight);
@@ -33,7 +30,7 @@ class RowStyle extends ContentAutoStyle {
 			throw new StyleException('Invalid min-height value');
 		}
 	}
-	
+
 	public function setHeight($height) {
 		if(isLengthValue($height, true)) {
 			$this->rowProp->setAttribute('style:row-height', $height);
@@ -41,12 +38,12 @@ class RowStyle extends ContentAutoStyle {
 			throw new StyleException('Invalid height value');
 		}
 	}
-	
+
 	/**
-	 * Specifies if the row height should be recalculated automatically 
+	 * Specifies if the row height should be recalculated automatically
 	 * if some content in the row changes.
-	 * 
-	 * @param type $optimalHeight 
+	 *
+	 * @param type $optimalHeight
 	 */
 	public function setOptimalHeight($optimalHeight) {
 		if(is_bool($optimalHeight)) {
@@ -58,8 +55,8 @@ class RowStyle extends ContentAutoStyle {
 
 	/**
 	 * Sets the background color of the row
-	 * 
-	 * @param color $color 
+	 *
+	 * @param color $color
 	 */
 	public function setBgColor($color) {
 		if (!isColor($color)) {
@@ -67,7 +64,7 @@ class RowStyle extends ContentAutoStyle {
 		}
 		$this->rowProp->setAttribute('fo:background-color', $color);
 	}
-	
+
 	/**
 	 * Specifies a background image for a row. Note that if you specify the position, the image
 	 * will not be repeated
@@ -122,7 +119,7 @@ class RowStyle extends ContentAutoStyle {
 		$imageElement->appendChild($binaryElement);
 		$this->rowProp->appendChild($imageElement);
 	}
-	
+
 	/**
 	 * Insert a page or column break before a table column
 	 *
@@ -155,5 +152,3 @@ class RowStyle extends ContentAutoStyle {
 //		$this->rowProp->setAttribute('fo:break-after', $breakAfter);
 //	}
 }
-
-?>

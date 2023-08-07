@@ -1,14 +1,11 @@
 <?php
 
-//require 'class.style.php';
-//require 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for paragraphs.
- *
- * @author Issam RACHDI
  */
 
 class ParagraphStyle extends Style {
@@ -22,8 +19,8 @@ class ParagraphStyle extends Style {
 	}
 
 	/**
-	 * Specifies a fixed line height either as a length or a percentage that 
-	 * relates to the highest character in a line. The value StyleConstants::NORMAL 
+	 * Specifies a fixed line height either as a length or a percentage that
+	 * relates to the highest character in a line. The value StyleConstants::NORMAL
 	 * activates the default line height calculation
 	 *
 	 * @param length|percentage|StyleConstants::NORMAL $lineHeight
@@ -511,4 +508,3 @@ class ParagraphStyle extends Style {
 		$this->styleElement->appendChild($element);
 	}
 }
-?>

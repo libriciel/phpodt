@@ -1,11 +1,10 @@
 <?php
 
-include_once 'phpodt.php';
+namespace PhpOdt;
 
-class ODTSubList extends ODTList {
-  
+class OdtSubList extends OdtList {
+
   function __construct($items = null) {
     parent::__construct($items, false);
   }
 }
-?>

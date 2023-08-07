@@ -1,14 +1,11 @@
 <?php
 
-//require_once 'class.style.php';
-//require_once 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for text content.
- * 
- * @author Issam RACHDI
  */
 
 class TextStyle extends Style {
@@ -44,7 +41,7 @@ class TextStyle extends Style {
 		$element->setAttribute('fo:text-transform', $attrTransform);
 		$this->styleElement->appendChild($element);
 	}
-	
+
 	/**
 	 * Changes the color of the text. The value passed
 	 * must be a 6 character hexadecimal value, for example #FF0000
@@ -61,10 +58,10 @@ class TextStyle extends Style {
 			throw new StyleException('Color value '.$color.' is not valid.');
 		}
 	}
-	
+
 	/**
 	 * Outline the text, or not
-	 * 
+	 *
 	 * @param boolean $outline
 	 */
 	function setTextOutline($outline = true) {
@@ -72,11 +69,11 @@ class TextStyle extends Style {
 		$element->setAttribute('style:text-outline', ($outline) ? 'true':'false');
 		$this->styleElement->appendChild($element);
 	}
-	
+
 	/**
 	 * Draw a line through text.
 	 * lineType can have one of these
-	 * lineWidth can have these 
+	 * lineWidth can have these
 	 * @param integer $lineType values: StyleConstants::NONE, StyleConstants::SINGLE, StyleConstants::DOUBLE
 	 * @param integer $lineWidth Valid values are: StyleConstants::NORMAL, StyleConstants::BOLD
 	 */
@@ -103,7 +100,7 @@ class TextStyle extends Style {
 		$element = $this->styleDocument->createElement('style:text-properties');
 		$element->setAttribute('style:text-line-through-type', $lineType);
 		$element->setAttribute('style:text-line-through-width', $lineWidth);
-		
+
 		$this->styleElement->appendChild($element);
 	}
 
@@ -147,7 +144,7 @@ class TextStyle extends Style {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param numeric|percentage $fontSize The font size can be either a numeric value representing absolute length
 	 * or a percentage
 	 */
@@ -180,7 +177,7 @@ class TextStyle extends Style {
 //		$element->setAttribute('fo:font-style', $fontStyle);
 //		$this->styleElement->appendChild($element);
 //	}
-  
+
   function setItalic() {
     $element = $this->styleDocument->createElement('style:text-properties');
 		$element->setAttribute('fo:font-style', 'italic');
@@ -188,7 +185,7 @@ class TextStyle extends Style {
   }
 
 	/**
-	 * 
+	 *
 	 * @param integer $fontRelief Valid values: StyleConstants::EMBOSSED, StyleConstants::ENGRAVED
 	 */
 	function setFontRelief($fontRelief) {
@@ -380,7 +377,7 @@ class TextStyle extends Style {
 
 	/**
 	 * Specifies an angle to which text is rotated. The angle can be 0, 90 or 270.
-	 * 
+	 *
 	 * @param integer $angle Angle of rotation
 	 */
 	function setRotationAngle($angle) {
@@ -393,4 +390,3 @@ class TextStyle extends Style {
 	}
 
 }
-?>

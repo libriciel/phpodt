@@ -1,14 +1,11 @@
 <?php
 
-//require_once 'class.contentautostyle.php';
-//require_once 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for table columns.
- *
- * @author Issam RACHDI
  */
 
 class ColumnStyle extends ContentAutoStyle {
@@ -18,7 +15,7 @@ class ColumnStyle extends ContentAutoStyle {
 	/**
 	 *
 	 * @param type $contentDoc
-	 * @param type $name 
+	 * @param type $name
 	 */
 	public function __construct($name) {
     if (empty($name)) {
@@ -46,11 +43,11 @@ class ColumnStyle extends ContentAutoStyle {
 			throw new StyleException('Invalid table-width value');
 		}
 	}
-	
+
 	/**
 	 * Specifies if the column width should be recalculated automatically if some content in the column changes.
-	 * 
-	 * @param boolean $optimal 
+	 *
+	 * @param boolean $optimal
 	 */
 	public function setOptimalWidth($optimalWidth) {
 		if (is_bool($optimalWidth)) {
@@ -62,7 +59,7 @@ class ColumnStyle extends ContentAutoStyle {
 
 	/**
 	 * Insert a page or column break before a table column.
-	 * 
+	 *
 	 * @param integer $breakBefore Possible values: StyleConstants::(PAGE|COLUMN)
 	 */
 	function setBreakBefore($breakBefore) {
@@ -94,5 +91,3 @@ class ColumnStyle extends ContentAutoStyle {
 		$this->colProp->setAttribute('fo:break-after', $breakAfter);
 	}
 }
-
-?>

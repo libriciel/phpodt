@@ -1,14 +1,13 @@
 <?php
 
-//require_once 'class.contentautostyle.php';
-//require_once 'class.styleconstants.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 class RubyStyle extends ContentAutoStyle {
-	
+
 	private $rubyProperties;
-	
+
 	function __construct($name = '') {
     if (empty($name)) {
       $name = 'rubystyle'.rand(100, 9999999);
@@ -32,7 +31,7 @@ class RubyStyle extends ContentAutoStyle {
 		}
 		$this->rubyProperties->setAttribute('style:ruby-position', $position);
 	}
-	
+
 	function setRubyAlign($align) {
 		switch ($align) {
 			case StyleConstants::LEFT:
@@ -55,5 +54,5 @@ class RubyStyle extends ContentAutoStyle {
 		}
 		$this->rubyProperties->setAttribute('style:ruby-align', $align);
 	}
-	
+
 }

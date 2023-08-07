@@ -1,16 +1,14 @@
 <?php
 
-//require_once 'class.styleconstants.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\OdtException;
 
 /**
  * The class responsible for creating the xml documents needed
- * to generate an ODT document
- *
- * @author Issam RACHDI
+ * to generate an Odt document
  */
-class ODT {
+class Odt {
 	const GENERATOR = 'PHP-ODT 0.3';
 
 	/**
@@ -27,7 +25,7 @@ class ODT {
 //	private $officeStyles;
 //	private $officeAutomaticStyles;
 //	private $permissions;
-	
+
 	private static $instance;
 
 	/**
@@ -37,10 +35,10 @@ class ODT {
 	private function __construct() {
 		$this->initContent();
 	}
-	
+
 	static function getInstance() {
 		if (self::$instance == null) {
-			self::$instance = new ODT();
+			self::$instance = new Odt();
 		}
 		return self::$instance;
 	}
@@ -120,7 +118,7 @@ class ODT {
 		$root->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
 		$root->setAttribute('office:version', '1.1');
 		$this->metadata->appendChild($root);
-		
+
 		$generator = $this->metadata->createElement('meta:generator', self::GENERATOR);
 		$creationDate = $this->metadata->createElement('meta:creation-date', date('Y-m-d\TH:i:s'));
 		$this->officeMeta = $this->metadata->createElement('office:meta');
@@ -200,7 +198,7 @@ class ODT {
 		$officeAutomaticStyles = $this->documentContent->createElement('office:automatic-styles');
 		$root->appendChild($officeAutomaticStyles);
 
-		
+
 		$this->officeBody = $this->documentContent->createElement('office:body');
 		$root->appendChild($this->officeBody);
 
@@ -247,7 +245,7 @@ class ODT {
 	 */
 	function setKeywords($keywords) {
 		if (!is_array($keywords)) {
-			throw new ODTException('Keywords must be an array.');
+			throw new OdtException('Keywords must be an array.');
 		}
 		foreach ($keywords as $keyword) {
 			$element = $this->metadata->createElement('meta:keyword', $keyword);
@@ -272,11 +270,11 @@ class ODT {
 	function getStyleDocument() {
 		return $this->styles;
 	}
-	
+
 	public function getDocumentContent() {
 		return $this->documentContent;
 	}
-	
+
 	/**
 	 * Write the document to the hard disk
 	 */
@@ -295,4 +293,3 @@ class ODT {
 		chmod($fileName, $perm);
 	}
 }
-?>

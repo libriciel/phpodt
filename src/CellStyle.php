@@ -1,24 +1,21 @@
 <?php
 
-//require_once 'class.contentautostyle.php';
-//require_once 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for table cells.
- *
- * @author Issam RACHDI
  */
 
 class CellStyle extends ContentAutoStyle {
 
 	private $cellProp;
-	
+
 	/**
 	 *
-	 * @param DOMDocument $contentDoc 
-	 * @param string $name 
+	 * @param DOMDocument $contentDoc
+	 * @param string $name
 	 */
 	public function __construct($name) {
 		parent::__construct($name);
@@ -27,10 +24,10 @@ class CellStyle extends ContentAutoStyle {
 		$this->styleElement->appendChild($this->cellProp);
 	}
 
-	
+
 	/**
 	 * Specifies the vertical alignment of text in a table cell
-	 * 
+	 *
 	 * @param type $vAlign Possible values are StyleConstants::(TOP|MIDDLE|BOTTOM|AUTO)
 	 */
 	public function setVerticalAlign($vAlign) {
@@ -48,13 +45,13 @@ class CellStyle extends ContentAutoStyle {
 		}
 		$this->cellProp->setAttribute('style:vertical-align', $vAlign);
 	}
-	
+
 //	/**
-//	 * Specifies the source of the text-alignment. If the value of this attribute is StyleConstants::FIX, 
-//	 * the value specified with setVerticalAlign is used. If the value is StyleConstants::VALUE_TYPE, 
+//	 * Specifies the source of the text-alignment. If the value of this attribute is StyleConstants::FIX,
+//	 * the value specified with setVerticalAlign is used. If the value is StyleConstants::VALUE_TYPE,
 //	 * the text alignment depends on the value-type of the cell.
-//	 * 
-//	 * @param type $src 
+//	 *
+//	 * @param type $src
 //	 */
 //	public function setTextAlignSrc($src) {
 //		switch ($src) {
@@ -67,13 +64,13 @@ class CellStyle extends ContentAutoStyle {
 //		}
 //		$this->cellProp->setAttribute('style:text-align-source', $src);
 //	}
-	
+
 	/**
-	 * Specifies the direction of characters in a cell. The most common direction is left to right 
-	 * (StyleConstants::LTR). The other direction is top to bottom (StyleConstants::TTB), where the 
+	 * Specifies the direction of characters in a cell. The most common direction is left to right
+	 * (StyleConstants::LTR). The other direction is top to bottom (StyleConstants::TTB), where the
 	 * characters in the cell are stacked but not rotated.
-	 * 
-	 * @param integer $direction 
+	 *
+	 * @param integer $direction
 	 */
 	public function setDirection($direction) {
 		switch ($direction) {
@@ -86,13 +83,13 @@ class CellStyle extends ContentAutoStyle {
 		}
 		$this->cellProp->setAttribute('style:direction', $direction);
 	}
-	
+
 	/**
-	 * Specifies the vertical glyph orientation. 
-	 * The property specifies an angle or automatic mode. The only possible angle is 0, which disables 
+	 * Specifies the vertical glyph orientation.
+	 * The property specifies an angle or automatic mode. The only possible angle is 0, which disables
 	 * this feature.
-	 * 
-	 * @param integer $orientation 
+	 *
+	 * @param integer $orientation
 	 */
 	public function setVertGlyphOrient($orientation) {
 		switch ($orientation) {
@@ -108,8 +105,8 @@ class CellStyle extends ContentAutoStyle {
 
 	/**
 	 * Sets the background color of the cell.
-	 * 
-	 * @param color $color 
+	 *
+	 * @param color $color
 	 */
 	public function setBgColor($color) {
 		if (!isColor($color)) {
@@ -117,7 +114,7 @@ class CellStyle extends ContentAutoStyle {
 		}
 		$this->cellProp->setAttribute('fo:background-color', $color);
 	}
-	
+
 	/**
 	 * Specifies a background image for a cell. Note that if you specify the position, the image
 	 * will not be repeated
@@ -170,7 +167,7 @@ class CellStyle extends ContentAutoStyle {
 		$imageElement->appendChild($binaryElement);
 		$this->cellProp->appendChild($imageElement);
 	}
-	
+
 	/**
 	 * Specifies the border properties for cell.
 	 *
@@ -262,7 +259,7 @@ class CellStyle extends ContentAutoStyle {
 					   $borderWidth = StyleConstants::THIN) {
 		$this->setBorder($borderColor, $borderStyle, $borderWidth, 'right');
 	}
-	
+
 	/**
 	 * Specifies the spacing around a table cell.
 	 *
@@ -318,9 +315,9 @@ class CellStyle extends ContentAutoStyle {
 	function setRightPadding($padding) {
 		$this->setPadding($padding, 'right');
 	}
-	
+
 //	/**
-//	 * Specifies whether text wraps within a table cell. 
+//	 * Specifies whether text wraps within a table cell.
 //	 * @param integer $wrapOption
 //	 */
 //	function setWrapOption($wrapOption) {
@@ -333,11 +330,11 @@ class CellStyle extends ContentAutoStyle {
 //				throw new StyleException('Invalid wrap option value');
 //		}
 //		$this->cellProp->setAttribute('fo:wrap-option', $wrapOption);
-//	}		
-	
+//	}
+
 //	/**
 //	 * Specifies the rotation angle of the cell content in degrees.
-//	 * @param positive integer $angle 
+//	 * @param positive integer $angle
 //	 */
 //	function setRotationAngle($angle) {
 //		if (!isNumeric($angle, true)) {
@@ -345,11 +342,11 @@ class CellStyle extends ContentAutoStyle {
 //		}
 //		$this->cellProp->setAttribute('style:rotation-angle', $angle);
 //	}
-	
+
 //	/**
-//	 * Specifies how the edge of the text in a cell is aligned after a rotation. 
+//	 * Specifies how the edge of the text in a cell is aligned after a rotation.
 //	 * There are four alignment options: StyleConstants::(TOP|BOTTOM|CENTER|NONE)
-//	 * @param integer $angle 
+//	 * @param integer $angle
 //	 */
 //	function setRotationAlign($align) {
 //		switch ($align) {
@@ -366,7 +363,7 @@ class CellStyle extends ContentAutoStyle {
 //		}
 //		$this->cellProp->setAttribute('style:rotation-align', $align);
 //	}
-	
+
 //	function setRepeatContent($repeat) {
 //		if (!is_bool($repeat)) {
 //			throw new StyleException('Invalid repeat content value');
@@ -380,5 +377,3 @@ class CellStyle extends ContentAutoStyle {
 //		$this->cellProp->setAttribute('style:shrink-to-fit', $shrink);
 //	}
 }
-
-?>

@@ -1,14 +1,11 @@
 <?php
 
-//require_once 'class.contentautostyle.php';
-//require_once 'exceptions/class.styleexception.php';
+namespace PhpOdt;
 
-include_once 'phpodt.php';
+use PhpOdt\Exceptions\StyleException;
 
 /**
  * A Class representing style properties for tables.
- *
- * @author Issam RACHDI
  */
 
 class TableStyle extends ContentAutoStyle {
@@ -23,7 +20,7 @@ class TableStyle extends ContentAutoStyle {
 	}
 
 	/**
-	 * Specify the width of the table. You must also set the widths of each column, 
+	 * Specify the width of the table. You must also set the widths of each column,
 	 * and set the alignment to a value different than StyleConstants::MARGINS
 	 *
 	 * @param positiveLength|percentage $width
@@ -42,7 +39,7 @@ class TableStyle extends ContentAutoStyle {
 
 	/**
 	 * Specifies the horizontal alignment of a table.
-	 * 
+	 *
 	 * @param integer $align. Valid values are: StyleConstants::(LEFT|RIGHT|CENTER|MARGINS)
 	 * LEFT — The table aligns to the left.
    * RIGHT — The table aligns to the center.
@@ -68,9 +65,9 @@ class TableStyle extends ContentAutoStyle {
 		}
 		$this->tableProp->setAttribute('table:align', $align);
 	}
-	
+
 	/**
-	 * Specifies the left & right margin for a table. You must first specify an alignment 
+	 * Specifies the left & right margin for a table. You must first specify an alignment
 	 * Doesn't work when alignment is set to StyleConstants::CENTER
 	 *
 	 * @param integer|string $leftMargin
@@ -103,10 +100,10 @@ class TableStyle extends ContentAutoStyle {
 		$this->tableProp->setAttribute('fo:margin-top', $topMargin);
 		$this->tableProp->setAttribute('fo:margin-bottom', $bottomMargin);
 	}
-	
+
 	/**
 	 * Insert a page or column break before a table
-	 * 
+	 *
 	 * @param integer $breakBefore Valid values: StyleConstants::(PAGE|COLUMN)
 	 */
 	function setBreakBefore($breakBefore) {
@@ -123,7 +120,7 @@ class TableStyle extends ContentAutoStyle {
 
 	/**
 	 * Insert a page or column break after a table
-	 * 
+	 *
 	 * @param integer $breakAfter Valid values: StyleConstants::(PAGE|COLUMN)
 	 */
 	function setBreakAfter($breakAfter) {
@@ -137,11 +134,11 @@ class TableStyle extends ContentAutoStyle {
 		}
 		$this->tableProp->setAttribute('fo:break-after', $breakAfter);
 	}
-	
+
 	/**
 	 * Sets the background color of the table
-	 * 
-	 * @param color $color 
+	 *
+	 * @param color $color
 	 */
 	public function setBgColor($color) {
 		if (!isColor($color)) {
@@ -149,7 +146,7 @@ class TableStyle extends ContentAutoStyle {
 		}
 		$this->tableProp->setAttribute('fo:background-color', $color);
 	}
-	
+
 	/**
 	 * Specifies a background image for a table. Note that if you specify the position, the image
 	 * will not be repeated
@@ -203,14 +200,14 @@ class TableStyle extends ContentAutoStyle {
 		$imageElement->appendChild($binaryElement);
 		$this->tableProp->appendChild($imageElement);
 	}
-	
+
 	/**
 	 * Keeps the table and the next paragraph together on a page or in a column after a break is inserted.
 	 */
 	function setKeepWithNext() {
 		$this->tableProp->setAttribute('fo:keep-with-next', 'always');
 	}
-	
+
 	/**
 	 * There are two types of border model:
 	 * Collapsing border model:
@@ -218,7 +215,7 @@ class TableStyle extends ContentAutoStyle {
 	 * between the cells. Each cell receives half of the width of the border.
 	 * Separating border model:
 	 * Borders appear within the cell that specifies the border.
-	 * 
+	 *
 	 * @param type $model StyleConstants::(COLLAPSING, SEPARATING)
 	 */
 	function setBorderModel($model) {
@@ -232,10 +229,10 @@ class TableStyle extends ContentAutoStyle {
 		}
 		$this->tableProp->setAttribute('table:border-model', $model);
 	}
-	
+
 	/**
 	 * Specifies the writing mode.
-	 * 
+	 *
 	 * @param integer $writingMode Valid values: StyleConstants::(LR_TB|RL_TB|TB_RL|TB_LR|RL|TB|PAGE)
 	 */
 	function setWritingMode($writingMode) {
@@ -260,5 +257,3 @@ class TableStyle extends ContentAutoStyle {
 		$this->tableProp->setAttribute('style:writing-mode', $writingMode);
 	}
 }
-
-?>
