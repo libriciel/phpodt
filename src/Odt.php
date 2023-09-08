@@ -12,7 +12,7 @@ use ZipArchive;
  */
 class Odt
 {
-    public const GENERATOR = 'PHP-ODT 0.9';
+    public const GENERATOR = 'PHP-ODT 0.9.1';
 
     /**
      * The name of the odt file

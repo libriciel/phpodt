@@ -3,7 +3,7 @@
   "description": "Php-odt is a php library that help you create an ODT (Open Document Text) file, partially compliant with the Oasis OpenDocument specifications v1.1.",
   "homepage": "https://github.com/libriciel/phpodt",
   "type": "project",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "authors": [
     {
       "name": "Sébastien PLAZA",
