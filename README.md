@@ -1,12 +1,12 @@
-# What is php-odt?
+# What is phpodt?
 
-Php-odt is a php library that help you create an ODT (Open Document Text) file, partially compliant with the Oasis OpenDocument specifications v1.1.
+phpodt is a PHP library that help you create an ODT (Open Document Text) file, partially compliant with the Oasis OpenDocument specifications v1.1.
 
 It was initially developed by [_Issam RACHDI_ on SourceForge](https://sourceforge.net/projects/php-odt/) in 2014.
 
 # How it works?
 
-OpenDocument files, "odt" files for example, are actually ZIP archives. An odt file created with php-odt will have the following structure:
+OpenDocument files, "odt" files for example, are actually ZIP archives. An odt file created with phpodt will have the following structure:
 
 ```
 ODT file (ZIP archive)
@@ -28,4 +28,4 @@ So when you add some content, the text will be stored in "content.xml"; when you
 
 # Requirements
 
-php-odt needs PHP >= 7.4 to work. Also you need the DOM and ZIP extensions installed in your server.
+phpodt needs PHP >= 8.1 to work. Also you need the DOM and ZIP extensions installed in your server.

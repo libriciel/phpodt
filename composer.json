@@ -1,7 +1,7 @@
 {
-  "name": "jmjjg/phpodt",
+  "name": "libriciel/phpodt",
   "description": "Php-odt is a php library that help you create an ODT (Open Document Text) file, partially compliant with the Oasis OpenDocument specifications v1.1.",
-  "homepage": "https://php-odt.sourceforge.net/",
+  "homepage": "https://github.com/libriciel/phpodt",
   "type": "project",
   "version": "0.9.0",
   "authors": [
@@ -15,11 +15,12 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.1",
     "ext-dom": "*",
     "ext-zip": "*"
   },
   "require-dev": {
+    "phpunit/phpunit": "^10.3",
     "squizlabs/php_codesniffer": "*"
   },
   "autoload": {
@@ -28,7 +29,20 @@
       "PhpOdt\\": "src/"
     }
   },
-  "scripts": {},
+  "autoload-dev": {
+    "psr-4": {
+      "PhpOdt\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "phpcbf": "vendor/bin/phpcbf",
+    "phpcs": "vendor/bin/phpcs",
+    "phpunit": "vendor/bin/phpunit",
+    "pre-commit": [
+      "@phpcs",
+      "@phpunit"
+    ]
+  },
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist",

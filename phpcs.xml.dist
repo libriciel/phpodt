@@ -4,6 +4,7 @@
     <description>Coding standard for phpodt</description>
 
     <file>src</file>
+    <file>tests</file>
     <rule ref="PSR12" />
     <rule ref="Generic.Files.LineLength">
         <properties>
